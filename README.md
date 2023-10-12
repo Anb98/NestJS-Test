@@ -26,6 +26,7 @@ This project consists of two folders: `easy-one` and `challenge`. Each folder co
   - If no JSON link is found, search for JSON links in a web page
   - Return the first JSON found as a response
   - If no JSON links are found, return a 404 response
+- There are some example email to test every case in `challenge/example-emails`
 - Unit testing coverage:
 
 ![Unit testing coverage](./real-challenge.png)
