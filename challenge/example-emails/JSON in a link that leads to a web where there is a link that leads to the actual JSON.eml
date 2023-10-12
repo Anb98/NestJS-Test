@@ -1,0 +1,20 @@
+MIME-Version: 1.0
+Date: Wed, 11 Oct 2023 23:50:53 -0600
+Message-ID: <CAANJq8QnYKvdN2KaUUaxDbsLxUYQ_WAANXybLrKOKEOKsT3_9w@mail.gmail.com>
+Subject: JSON in a link that leads to a web where there is a link that leads
+ to the actual JSON
+From: =?UTF-8?Q?Abdiel_Mart=C3=ADnez?= <aabdiel1998@gmail.com>
+To: =?UTF-8?Q?Abdiel_Mart=C3=ADnez?= <aabdiel1998@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000e40e6a06077e85d0"
+
+--000000000000e40e6a06077e85d0
+Content-Type: text/plain; charset="UTF-8"
+
+https://jsonplaceholder.typicode.com/
+
+--000000000000e40e6a06077e85d0
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><a href="https://jsonplaceholder.typicode.com/">https://jsonplaceholder.typicode.com/</a><br></div>
+
+--000000000000e40e6a06077e85d0--

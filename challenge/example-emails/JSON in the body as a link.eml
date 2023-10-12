@@ -1,0 +1,19 @@
+MIME-Version: 1.0
+Date: Wed, 11 Oct 2023 23:48:18 -0600
+Message-ID: <CAANJq8Q22yX6xX=6UARyr6LvYFUa81zHa53X3X2qbwNL+JAQnQ@mail.gmail.com>
+Subject: JSON in the body as a link
+From: =?UTF-8?Q?Abdiel_Mart=C3=ADnez?= <aabdiel1998@gmail.com>
+To: =?UTF-8?Q?Abdiel_Mart=C3=ADnez?= <aabdiel1998@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000a1fda306077e7c07"
+
+--000000000000a1fda306077e7c07
+Content-Type: text/plain; charset="UTF-8"
+
+https://jsonplaceholder.typicode.com/posts/1
+
+--000000000000a1fda306077e7c07
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><a href="https://jsonplaceholder.typicode.com/posts/1">https://jsonplaceholder.typicode.com/posts/1</a><div><br></div></div>
+
+--000000000000a1fda306077e7c07--
