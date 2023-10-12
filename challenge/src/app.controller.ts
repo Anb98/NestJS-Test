@@ -12,7 +12,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('get-json')
-  async getJson(@Query('url') url: string): Promise<string> {
+  async getJson(@Query('url') url?: string): Promise<string> {
     if (!url) throw new BadRequestException('url param is missing');
 
     const emailContent = await this.appService.getEmailContent(url);

@@ -3,8 +3,8 @@ import { json } from 'node:stream/consumers';
 import { MailParser } from 'mailparser';
 import fetch from 'node-fetch';
 import { load } from 'cheerio';
-import puppeteer from 'puppeteer';
-import { Injectable } from '@nestjs/common';
+// import puppeteer from 'puppeteer';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 interface EmailContent {
   html: string;
@@ -17,7 +17,7 @@ export class AppService {
     const { html } =
       typeof args === 'string' ? await this.getEmailContent(args) : args;
 
-    const link = this.getLinkContent(html);
+    const link = this.getLinksContent(html)[0];
 
     return this.checkPageIsJson(link);
   }
@@ -26,25 +26,12 @@ export class AppService {
     const { html } =
       typeof args === 'string' ? await this.getEmailContent(args) : args;
 
-    const link = this.getLinkContent(html);
+    const mainLink = this.getLinksContent(html)[0];
 
-    const browser = await puppeteer.launch({ headless: 'new' });
-    const page = await browser.newPage();
-
-    await page.goto(link);
-    const availableLinks = await page.evaluate(() => {
-      const linkNodes = document.querySelectorAll('a');
-
-      return Array.from(linkNodes).map((linkNode) => {
-        const baseURL = document.location.origin;
-
-        const href = linkNode.getAttribute('href');
-
-        return href.startsWith('http') ? href : new URL(href, baseURL).href;
-      });
-    });
-
-    browser.close();
+    const text = await (await fetch(mainLink)).text();
+    const availableLinks = await this.getLinksContent(text).map((link) =>
+      link.startsWith('http') ? link : new URL(link, mainLink).href,
+    );
 
     for (const availableLink of availableLinks) {
       const jsonContent = await this.checkPageIsJson(availableLink);
@@ -56,7 +43,11 @@ export class AppService {
   async getEmailContent(path: string) {
     const readStream = await this.getReadStream(path);
 
-    return new Promise<EmailContent>((resolve) => {
+    return new Promise<EmailContent>((resolve, reject) => {
+      readStream.on('error', () => {
+        reject(new NotFoundException('JSON not found'));
+      });
+
       readStream.pipe(new MailParser()).on('data', async (data) => {
         if (data.type === 'text') {
           resolve({
@@ -95,8 +86,12 @@ export class AppService {
       .catch(() => {});
   }
 
-  private getLinkContent(html: string) {
+  private getLinksContent(html: string) {
     const $ = load(html);
-    return $('a').attr('href');
+    return $('a')
+      .map(function () {
+        return $(this).attr('href');
+      })
+      .toArray();
   }
 }
