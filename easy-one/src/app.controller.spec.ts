@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import mockBodyRequest from './__mocks__/sessSnsEvent';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -8,7 +8,7 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [],
     }).compile();
 
     appController = app.get<AppController>(AppController);
@@ -16,7 +16,17 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+      expect(appController.sesSnsEvent(mockBodyRequest)).toEqual([
+        {
+          dns: true,
+          emisor: '61967230-7A45-4A9D-BEC9-87CBCF2211C9',
+          mes: 'septiembre',
+          receptor: ['recipient'],
+          retrasado: false,
+          spam: true,
+          virus: true,
+        },
+      ]);
     });
   });
 });
