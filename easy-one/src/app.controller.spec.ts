@@ -15,7 +15,7 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
+    it('should return a json with calculated data', () => {
       expect(appController.sesSnsEvent(mockBodyRequest)).toEqual([
         {
           dns: true,
